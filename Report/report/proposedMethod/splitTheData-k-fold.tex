@@ -1,0 +1,37 @@
+\subsection{Split the data - k-fold}
+Next step is to split the data again but into 3 sections: train, test and validate. This can be done in a number of different ways, but one of the most efficient ways is k-fold cross validation \parencite{rodriguez2009sensitivity}.
+What k-fold does, is it splits the data into k (number) of sections. With this, we can have the best ratio between train, test and validate.
+
+The code block bellow is enabling us to do k-fold. First, we define parameters of k-fold into the variable of kf. Next, the function (kFoldValidation) is written that will split the data upon being called.
+\begin{lstlisting}[language=Python, caption=Create k-fold function]
+kf = KFold(n_splits = 10, shuffle = True, random_state = 6)
+def kFoldValidation(df):
+  result = next(kf.split(df), None)
+  train = df.iloc[result[0]]
+  test =  df.iloc[result[1]]
+  return train, test
+\end{lstlisting}
+Now that we have our k-fold function sorted, we can use it. First, we split the data into two sections: 1) train and 2) validation and testing. Next step is to split second section apart into 2.1) validation and 2.2) testing. % maybe add that section 1 is the biggest
+\begin{lstlisting}[language=Python, caption={Split the data to train, test and validate}]
+X_train, X_val_and_test = kFoldValidation(X)
+y_train, y_val_and_test = kFoldValidation(y)
+X_val, X_test = kFoldValidation(X_val_and_test)
+y_val, y_test = kFoldValidation(y_val_and_test)
+\end{lstlisting}
+The data is in the format of Pandas dataframe until now. This is something that needs to be changed in order for model to process the data. That is why, we have converted the data to numpy array. 
+As seen in the code block bellow, data is also being transformed. Y (target) data is being encoded with label encoder since ratings (1-5) are potential labels. With X (input) data, this is being scaled based on the encoded data.
+\begin{lstlisting}[language=Python, caption={Reshape the data to fit the model}]
+sc = StandardScaler(with_mean=False)
+sc.fit(X_train)
+
+le = LabelEncoder()
+le.fit(y_train)
+
+X_train_transf = sc.transform(X_train)
+X_test_transf = sc.transform(X_test)
+X_val_transf = sc.transform(X_val)
+
+y_train_cat = np_utils.to_categorical(le.transform(y_train))
+y_test_cat = np_utils.to_categorical(le.transform(y_test))
+y_val_cat = np_utils.to_categorical(le.transform(y_val))
+\end{lstlisting}

@@ -1,0 +1,33 @@
+Code block representing how model is build together.
+\begin{lstlisting}[language=Python, caption=Build model]
+model = models.Sequential()
+# hidden layer 1
+model.add(layers.Dense(250, 
+                       activation='LeakyReLU', 
+                       input_dim=X_train.shape[1], 
+                       kernel_regularizer=regularizers.l2(0.00001)))
+model.add(layers.Dropout(0.3))
+# hidden layer 2
+model.add(layers.Dense(100, activation='LeakyReLU'))
+model.add(layers.Dropout(0.2))
+# hidden layer 3
+model.add(layers.Dense(50, activation='LeakyReLU'))
+model.add(layers.Dropout(0.2))
+# output layer, 5 untis since ratings are 1,2,3,4,5
+model.add(layers.Dense(5, activation='softplus'))
+\end{lstlisting}
+Representation of compiling the model.
+\begin{lstlisting}[language=Python, caption=Compile model]
+model.compile(optimizer='RMSprop', 
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
+\end{lstlisting}
+Fitting the model and saving results into local variable named history.
+\begin{lstlisting}[language=Python, caption=Fit model]
+history = model.fit(X_train_transf, 
+                    y_train_cat, 
+                    validation_data=(X_val_transf, y_val_cat),
+                    batch_size=158, 
+                    epochs=100, 
+                    verbose=2)
+\end{lstlisting}

@@ -1,0 +1,32 @@
+\subsection{Confusion matrix}
+To evaluate the data (further), we are using confusion matrix \parencite{visa2011confusion}. This standard is popular in the industry. 
+In the first code block, we are calculating multi label confusion matrix and displaying the results.
+\begin{lstlisting}[language=Python, caption=Calculate confusion matrix]
+warnings.filterwarnings('ignore')
+preds = model.predict(X_test_transf)
+preds = np.where(preds < 0.5, 0, 1)
+
+target_names = ['Rating 1', 'Rating 2', 'Rating 3', 'Rating 4', 'Rating 5']
+cm = multilabel_confusion_matrix(y_test_cat, preds)
+print(classification_report(y_test_cat, preds, target_names=target_names))
+\end{lstlisting}
+Second code block is for visualise confusion matrix. Since we have multi label confusion matrix, each label (class) is visualised separately.
+\begin{lstlisting}[language=Python, caption=Visualise confusion matrix]
+f, axes = plt.subplots(1, 5, figsize=(20, 10))
+axes = axes.ravel()
+for i in range(5):
+    disp = ConfusionMatrixDisplay(confusion_matrix(y_test_cat[:, i],
+                                                   preds[:, i]),
+                                  display_labels=[0, i+1])
+    disp.plot(ax=axes[i], values_format='.4g')
+    disp.ax_.set_title(f'Rating {i+1}')
+    if i<10:
+        disp.ax_.set_xlabel('')
+    if i%5!=0:
+        disp.ax_.set_ylabel('')
+    disp.im_.colorbar.remove()
+
+plt.subplots_adjust(wspace=0.10, hspace=0.1)
+f.colorbar(disp.im_, ax=axes)
+plt.show()
+\end{lstlisting}

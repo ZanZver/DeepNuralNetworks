@@ -1,0 +1,27 @@
+\subsection{Import libraries}
+As noted from before, main library used for our project is Keras. But, we need to do some data processing and for that we need other libraries (sklearn, numpy, pandas) and drawing the charts (matplolib).
+\begin{lstlisting}[language=Python, caption=Import libraries]
+import pandas as pd 
+from sklearn.model_selection import KFold
+import keras
+import tensorflow as tf
+from sklearn.preprocessing import OneHotEncoder
+from keras.models import Sequential
+from keras.layers import Dense
+import numpy as np
+from sklearn import preprocessing
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+import seaborn as sns
+from keras import layers
+from keras import models
+from keras import regularizers
+from keras import optimizers
+from sklearn.preprocessing import LabelEncoder 
+from keras.utils import np_utils
+from sklearn.metrics import multilabel_confusion_matrix
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import warnings
+\end{lstlisting}

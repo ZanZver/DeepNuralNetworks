@@ -1,0 +1,65 @@
+\subsubsection{Constructing the model}
+In the model construction, different parameters were tested. At the end, the parameters (and hyper parameters) that yielded the best results are:
+\begin{itemize}
+    \item number of units: 200, 100 and 50
+    \begin{itemize}
+        \item In the first layer, we do start with 200 units. As we progress, number of units is decreased in each hidden layer. This results in H1 being 200, H2 100 and H3 has only 50 units. In the last (output) layer, we only have 5 units (since ratings are 1-5).
+    \end{itemize}
+    
+    \item batch size: 128
+    \begin{itemize}
+        \item Batch size of 64 was the starter and it was tested up to 256. After the batch size of 158, difference was minimal therefore this was the chosen number.
+    \end{itemize}
+    
+    \item number of epochs: 100
+    \begin{itemize}
+        \item For testing purposes, we have started with 20 epochs to save the time, but went with 100 for final product since the results are better with it.
+    \end{itemize}
+    
+    \item learning rate: 0.00001
+    \begin{itemize}
+        \item Learning rates of 0.001, 0.0001, 0.00001 and 0.000001 were tested. At the end, 0.00001 gave the best results.
+    \end{itemize}
+    
+    \item momentum
+    \begin{itemize}
+        \item This function is left disabled. After testing it, momentum of 0.2 and 0.3 brings the best results but if it is disabled (set to 0.0), results are even better.
+    \end{itemize}
+    
+    \item dropout: 0.3 and 0.2
+    \begin{itemize}
+        \item First layer is using dropout of 0.3. After that, we have decreased dropout to 0.2 for the rest of hidden layers (H2 and H3).
+    \end{itemize}
+    
+    \item activation function: LeakyReLU and softplus in last
+    \begin{itemize}
+        \item Input function and  hidden layers 1-3 (H1, H2 and H3) are using linear activation function. In the last layer, softplus converts vector to a distribution that can be used for predicting Ratings.
+    \end{itemize}
+    
+    \item number of layers: 5
+    \begin{itemize}
+        \item Input layer
+        \item Hidden layer 1
+        \item Hidden layer 2
+        \item Hidden layer 3
+        \item Output layer
+    \end{itemize}
+    
+    \item optimizer: RMSprop
+    \begin{itemize}
+        \item Diferent optimises were tested along the way. At the end, there were two candidates: RMSprop and SGD. After some testing RMSprop delivered slightly better results therefore it was chosen.
+    \end{itemize}
+    
+    \item loss function: categorical crossentropy
+    \begin{itemize}
+        \item Loss function of choice is categorical crossentropy. This is due to our problem being predicting Ratings, therefore we have chosen that.
+    \end{itemize}
+    
+    \item metrics: accuracy
+    \begin{itemize}
+        \item accuracy is not the only metrics used in industry, but it is the most well known. This is the reason for implementing it. Besides that, confusion matrix is being used as well (that is showcased at the end).
+    \end{itemize}
+    
+\end{itemize}
+\input{report/proposedMethod/buildNeuralNetwork/model}
+\input{report/proposedMethod/buildNeuralNetwork/code}

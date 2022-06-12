@@ -1,0 +1,6 @@
+\subsection{Split the data - X, y}
+Now that we have the dataframe encoded we can split it up to X (features) and y (target). In the code block bellow, we can see X is collection of attributes from encoded dataframe that are indexed 1 and above. Opposite to that, y is single attribute from encoded dataframe that has index 0.
+\begin{lstlisting}[language=Python, caption=Split the data - X and y]
+X = encoded_dataframe.iloc[:,1:len(encoded_dataframe.columns)]
+y = encoded_dataframe.iloc[:,0:1]
+\end{lstlisting}

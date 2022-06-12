@@ -1,0 +1,37 @@
+\subsection{One hot encoding of the data}
+In our dataset, we have 6 attributes. 2 of them are of numeric type (Cocoa Percent and Rating), the other 4 are string types. With that in mind, we cannot do neural network operations on such dataset without some modifications.
+
+To overcome the problem, we use one hot encoding for encoding the data\parencite{jie2019one}. What one hot encoding does, it binary encodes words into the dataframe. For example, if chocolate would have origin in UK, attribute would be created with the name of UK and all of chocolates with origin of UK would have 1 as a value and others would have 0.
+
+In the code block bellow, we can see how we are encoding the data. First empty dataframe is build that will store the data and then the function is build that will encode the data. Next, we pass in our dataframe to be encoded and save it as encoded dataframe. In last step, we remove original attributes since they are not needed anymore.
+
+\begin{lstlisting}[language=Python, caption=One hot encoding of the data]
+encoded_dataframe = pd.DataFrame()
+encoder = OneHotEncoder(handle_unknown='ignore')
+def encodeRow(df, columnName):
+    encoder_df = pd.DataFrame(encoder.fit_transform(df[columnName]).toarray())
+    newNames= []
+    for x in encoder.get_feature_names_out():
+       x = x.replace("_", " ")
+       x = x.rstrip()
+       x = x.replace('\n', "_")
+       x = x.replace(' ', "_")
+       newNames.append(x)
+    encoder_df.columns = list(newNames)
+    return encoder_df
+
+encoded_dataframe = cacao_dataframe_full.join(
+                        encodeRow(cacao_dataframe_full,[
+                            "Specific Bean Origin or Bar Name",
+                            "Company Location", 
+                            "Bean Type", 
+                            "Broad Bean Origin"]
+                        ))
+
+encoded_dataframe.drop([
+                "Specific Bean Origin or Bar Name",
+                "Company Location",
+                "Bean Type",
+                "Broad Bean Origin"],
+                axis=1, inplace=True)
+\end{lstlisting}

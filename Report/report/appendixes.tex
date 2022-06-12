@@ -1,0 +1,52 @@
+\section{Appendixes}
+\subsection{A1: About the data}
+Dataset is created by the company FlavorsOfCacao and can be found on Kaggle \parencite{web:FlavorsOfCacaoDataset}. The company goal is to provide independent chocolate ratings which could be displayed on chocolate bar. Idea they have is for the customer to compare two chocolates not on the price but on the rating. For example, customer would pick up chocolate A and chocolate B in the store, based on the rating customer can decide if chocolate is worth his money.
+Dataset itself is build on 9 attributes and 1795 records (described in the table bellow).
+
+\begin{table}[H]
+  \centering
+    \begin{tabular}{ |m{12em}|m{20em}| } 
+     \hline
+     Dataset attributes & Dataset description \\ 
+     \hline
+        Company (Maker-if known) &
+        \tabitem Name of the company that is producing the chocolate (e.g.: Cadbury)  \\ &
+        \tabitem Data type: string \\
+     \hline
+    Specific Bean Originor Bar Name &
+        \tabitem Where chocolate bar was created \\ &
+        \tabitem Data type: string \\
+     \hline
+    REF &
+        \tabitem Value when review was entered in the database \\ &
+        \tabitem Could be useful if we would be comparing chocolate over time, and how companies have evolved, other than that this attribute will be skipped \\ &
+        \tabitem Data type: int \\
+     \hline
+    ReviewDate &
+        \tabitem When the review has been released/added to the website \\ &
+        \tabitem Data type: int \\
+     \hline
+        CocoaPercent &
+        \tabitem What is the percentage of cocoa (darkness) in the chocolate \\ &
+        \tabitem Data type: string \\
+     \hline
+        CompanyLocation &
+        \tabitem Where is the company based from \\ &
+        \tabitem Data type: string \\
+     \hline
+        Rating &
+        \tabitem The mark from 1 (lowest) to 5 (highest) representing quality of the chocolate \\ &
+        \tabitem Data type: float \\
+     \hline
+        BeanType &
+        \tabitem Some chocolates do use bean combination, and this can be found here \\ &
+        \tabitem Data type: string \\
+     \hline
+        Broad BeanOrigin &
+        \tabitem Where is the broad geo-region of bean origin \\ &
+        \tabitem Data type: string \\
+     \hline
+     
+    \end{tabular}
+\caption{Dataset attributes described}
+\end{table}

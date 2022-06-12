@@ -1,0 +1,48 @@
+\subsection{Filter the data}
+
+There are some attributes in the dataset that are not useful for our case. Due to that, we are going to remove them.
+\begin{lstlisting}[language=Python, caption=Remove attributes]
+cacao_dataframe = cacao_dataframe_full
+del cacao_dataframe["Company\xa0\n(Maker-if known)"]
+del cacao_dataframe["REF"]
+del cacao_dataframe["Review\nDate"]
+\end{lstlisting}
+Replace new lines (\textbackslash n) with spaces.
+\begin{lstlisting}[language=Python, caption=Remove spaces]
+cacao_dataframe.columns = cacao_dataframe.columns.str.replace
+                                      ("\n", ' ', regex=True) 
+\end{lstlisting}
+Data in attribute "Cocoa Percent" has \% symbol next to the numeric value. This is something that needs to be changed, therefore all of the \% symbols are going to be removed from the attribute. 
+\begin{lstlisting}[language=Python, caption=Remove symbols]
+cacao_dataframe2 = pd.DataFrame(
+             cacao_dataframe["Cocoa Percent"].str.replace("%",""))
+cacao_dataframe.drop(["Cocoa Percent"], axis=1, inplace=True)
+cacao_dataframe = cacao_dataframe.join(cacao_dataframe2)
+\end{lstlisting}
+While developing the code, we found out that our dataset is not big enough (in terms of records). This was clearly marked when we figured out that we only have 2 ratings that are marked as 5. To combat this, we have multiplied the whole dataset by 10. With that in mind, we still have the same ratio between results, it just makes it simpler to avoid facing wrong sizes upon fitting data to the model. Alternative would be to do data augmentation.
+\begin{lstlisting}[language=Python, caption=Expend data]
+cacao_dataframe_full = cacao_dataframe_full.loc
+                        [cacao_dataframe_full.index.repeat(10)]
+cacao_dataframe_full = cacao_dataframe_full.reset_index(drop=True)
+\end{lstlisting}
+While we did some data inspection, there seems to be data that is not unified. To combat this, all of the ratings are "rounded" the same way.
+\begin{lstlisting}[language=Python, caption=Fix ratings]
+def fix_ratings(rating):
+    if rating < 0.5: 
+        return 0.0 
+    elif rating < 1.5: 
+        return 1.0 
+    elif rating < 2.5: 
+        return 2.0
+    elif rating < 3.5: 
+        return 3.0
+    elif rating < 4.5: 
+        return 4.0 
+    elif rating < 5.5: 
+        return 5.0
+    else:
+        return 0.0
+  
+cacao_dataframe_full["Rating"] = 
+    cacao_dataframe_full["Rating"].apply(lambda x: fix_ratings(x))
+\end{lstlisting}

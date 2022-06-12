@@ -1,0 +1,38 @@
+\subsection{Calculate and display model results}
+To calculate and display results, we first need to grab the data. We do this by getting history data that we have created from above.
+\begin{lstlisting}[language=Python, caption=Create dictionary of history values]
+history_dict = history.history
+history_dict.keys()
+\end{lstlisting}
+This step is not necessary, but it is convenient. What we do is, extract values based on keys and save it to local variables.
+\begin{lstlisting}[language=Python, caption=Save data from dict to local variables]
+training_acc = history_dict['accuracy']
+val_acc = history_dict['val_accuracy']
+
+training_loss = history_dict["loss"]
+val_loss = history_dict["val_loss"]
+\end{lstlisting}
+In the next step, we plot our first graph as training and validation accuracy.
+\begin{lstlisting}[language=Python, caption=Plot training and validation accuracy]
+epochs = range(1, len(val_acc) + 1)
+
+plt.plot(epochs, training_acc, 'bo', label="Training Accuracy")
+plt.plot(epochs, val_acc, 'b', label='Validation Accuracy')
+
+plt.title('Plot training and validation accuracy')
+
+plt.legend()
+plt.show()
+\end{lstlisting}
+Finaly, we plot the last graph as training and validation loss.
+\begin{lstlisting}[language=Python, caption=Plot training and validation loss]
+epochs = range(1, len(training_loss) + 1)
+
+plt.plot(epochs, training_loss, 'bo', label='Training Loss')
+plt.plot(epochs, val_loss, 'b', label='Validation Loss')
+
+plt.title('Plot training and validation loss')
+
+plt.legend()
+plt.show()
+\end{lstlisting}

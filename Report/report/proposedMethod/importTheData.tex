@@ -1,0 +1,8 @@
+\subsection{Import the data}
+Data is being directly imported from Kaggle to Google Colab. This is done with the help of their API \parencite{web:KaggleAPI}. So, first step is to create local (to Colab) dictionary (with the name of kaggle). Next, we move our API keys from Google Drive to our new folder. Now we change permissions of the keys so they can be read. After that, we download the dataset and we can see it saved locally. More information on the dataset can be found on appendix A1: About the data.
+\begin{lstlisting}[language=Python, caption=Import the data]
+! mkdir ~/.kaggle #create local kaggle folder
+! cp /content/drive/MyDrive/Kaggle/kaggle.json ~/.kaggle/ #move auth key from one drive to temp folder
+! chmod 600 ~/.kaggle/kaggle.json #use auth key
+! kaggle datasets download rtatman/chocolate-bar-ratings -f flavors_of_cacao.csv #download the file from kaggle and unzip it while it is downloading
+\end{lstlisting}

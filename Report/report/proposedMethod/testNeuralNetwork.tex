@@ -1,0 +1,6 @@
+\subsection{Test Neural Network}
+To test the NN, we put the last batch of never seen data to it. This is test data. With that in mind, we can see our evaluation and determine if this is matching to the results from model training.
+\begin{lstlisting}[language=Python, caption=Evaluate the model]
+scores = model.evaluate(X_test_transf, y_test_cat, batch_size=128)
+print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
+\end{lstlisting}
